@@ -43,8 +43,9 @@ novo_cliente = pd.DataFrame([{
 }], columns=colunas)
 
 novo_cliente = pd.get_dummies(novo_cliente, drop_first=True)
-
+#precisa dummar pq a gente dummou no treino, se nn fizer isso nem roda
 novo_cliente = novo_cliente.reindex(columns=modelo.feature_names_in_, fill_value=0)
+#aq tmbm so reindexando igual a gente fazia 
 
 pred = modelo.predict(novo_cliente)[0]
 proba = modelo.predict_proba(novo_cliente)[0]

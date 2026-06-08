@@ -52,7 +52,7 @@ grade_de_parametros = {
 # o numero de arvores, mas aqui acho q ta na media
 
 
-AraucariasRF = RandomForestClassifier(random_state=42, n_jobs=1)
+AraucariasRF = RandomForestClassifier(random_state=42, n_jobs=-1)
 
 #me acostumei a usar esse nome de floresta em tudo ent deixei
 
@@ -101,23 +101,26 @@ dump(rf_final, open("CARTAO_rf.pkl", "wb"))
 #no final saiu isso aq, e meu deus do ceu demorou mt esse segundos ai ta errado foram 3 minutos e 45, tudo bem um i5 a 4,5ghz nn é la
 # uma workstation mas xesus amado, pra mim isso em da dimensao daquela parada q vc falou q demorou seculos pra treinar o csv da huwawei em uma maquina de 150k
 
-'''PS C:\Users\galak\OneDrive\Desktop\A2-2-SISTEMAS-INT> & C:/Users/galak/AppData/Local/Python/pythoncore-3.14-64/python.exe c:/Users/galak/OneDrive/Desktop/A2-2-SISTEMAS-INT/CARTAO_rf.py
-Fitting 5 folds for each of 20 candidates, totalling 100 fits
-melhor parametro: {'n_estimators': 400, 'min_samples_split': 2, 'max_features': 'log2', 'max_depth': 43, 'criterion': 'entropy'}
-melhor score 0.8616490920353697
-tempo de treino com os mior parametro:  3.4595658779144287 segundos
-acuracia: 0.7968888888888889
-matriz de confusao:
- [[6305  735]
- [1093  867]]
-relatorio de classificaçao:
-               precision    recall  f1-score   support
+# '''PS C:\Users\galak\OneDrive\Desktop\A2-2-SISTEMAS-INT> & C:/Users/galak/AppData/Local/Python/pythoncore-3.14-64/python.exe c:/Users/galak/OneDrive/Desktop/A2-2-SISTEMAS-INT/CARTAO_rf.py
+# Fitting 5 folds for each of 20 candidates, totalling 100 fits
+# melhor parametro: {'n_estimators': 400, 'min_samples_split': 2, 'max_features': 'log2', 'max_depth': 43, 'criterion': 'entropy'}
+# melhor score 0.8616490920353697
+# tempo de treino com os mior parametro:  3.4595658779144287 segundos
+# acuracia: 0.7968888888888889
+#matriz de confusao:
+# [[6305  735]
+# [1093  867]]
+#relatorio de classificaçao:
+#               precision    recall  f1-score   support
+#
+# nao default       0.85      0.90      0.87      7040
+#    default       0.54      0.44      0.49      1960
+#
+#    accuracy                           0.80      9000
+#   macro avg       0.70      0.67      0.68      9000
+#weighted avg       0.78      0.80      0.79      9000
 
- nao default       0.85      0.90      0.87      7040
-     default       0.54      0.44      0.49      1960
+#PS C:\Users\galak\OneDrive\Desktop\A2-2-SISTEMAS-INT> '''
 
-    accuracy                           0.80      9000
-   macro avg       0.70      0.67      0.68      9000
-weighted avg       0.78      0.80      0.79      9000
 
-PS C:\Users\galak\OneDrive\Desktop\A2-2-SISTEMAS-INT> '''
+#ficou bem ok pelo visto dentro do previsto
