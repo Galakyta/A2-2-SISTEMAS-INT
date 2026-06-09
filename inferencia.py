@@ -1,7 +1,8 @@
 from pickle import load
 import pandas as pd
 
-modelo = load(open("CARTAO_rf.pkl", "rb"))
+modelo_rf = load(open("CARTAO_rf.pkl", "rb"))
+modelo_xgb = load(open("CARTAO_xgboost.pkl", "rb"))
 
 # loadando o modelo normalmente 
 
@@ -44,17 +45,32 @@ novo_cliente = pd.DataFrame([{
 
 novo_cliente = pd.get_dummies(novo_cliente, drop_first=True)
 #precisa dummar pq a gente dummou no treino, se nn fizer isso nem roda
-novo_cliente = novo_cliente.reindex(columns=modelo.feature_names_in_, fill_value=0)
+novo_cliente = novo_cliente.reindex(columns=modelo_rf.feature_names_in_, fill_value=0)
 #aq tmbm so reindexando igual a gente fazia 
 
-pred = modelo.predict(novo_cliente)[0]
-proba = modelo.predict_proba(novo_cliente)[0]
+# Random Forest
+pred_rf = modelo_rf.predict(novo_cliente)[0]
+proba_rf = modelo_rf.predict_proba(novo_cliente)[0]
 
-print(f"Predicao:{'default' if pred == 1 else 'nao default'}")
-print(f"Probabilidade nao default (pagar em dia):  {proba[0]:.2%}")
-print(f"Probabilidade default (defaultar):  {proba[1]:.2%}") #atrasar e nunca mais sair do cheque especial
+print("Resultado Random Forest:")
+print(f"Predicao:{'default' if pred_rf == 1 else 'nao default'}")
+print(f"Probabilidade nao default (pagar em dia):  {proba_rf[0]:.2%}")
+print(f"Probabilidade default (defaultar):  {proba_rf[1]:.2%}")
 
-# Predicao:default
-#Probabilidade nao default (pagar em dia):  11.00%
-#Probabilidade default (defaultar):  89.00%
-#PS C:\Users\galak\OneDrive\Desktop\A2-2-SISTEMAS-INT>'''
+# XGBoost
+pred_xgb = modelo_xgb.predict(novo_cliente)[0]
+proba_xgb = modelo_xgb.predict_proba(novo_cliente)[0]
+
+print("\nResultado XGBoost:")
+print(f"Predicao:{'default' if pred_xgb == 1 else 'nao default'}")
+print(f"Probabilidade nao default (pagar em dia):  {proba_xgb[0]:.2%}")
+print(f"Probabilidade default (defaultar):  {proba_xgb[1]:.2%}")
+
+print("\n")
+if pred_rf == pred_xgb:
+    print(f"ambos previram {'default' if pred_rf == 1 else 'nao default'}.")
+else:
+    print(f"RF disse {'default' if pred_rf == 1 else 'nao default'}, XGB disse {'default' if pred_xgb == 1 else 'nao default'}.")
+    
+#entre as duas, xgboost pelos dados aparenta ser bem mais confiavel, levando em conta que arbitrariamente eu coloquei alguem que
+#nitidamente nunca iria pagar em dia, o xgboost aparentou ter muito mais certeza
