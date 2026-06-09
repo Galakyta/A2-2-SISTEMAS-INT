@@ -82,3 +82,29 @@ print("relatorio de classificaçao:", classification_report(target_teste, pred_t
 
 # Salvando o model
 dump(xgb_final, open("CARTAO_xgboost.pkl", "wb"))
+
+
+#C:\Users\galak\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\xgboost\training.py:200: UserWarning: [20:53:00] WARNING: C:\actions-runner\_work\xgboost\xgboost\src\learner.cc:782: 
+#Parameters: { "use_label_encoder" } are not used.
+
+#  bst.update(dtrain, iteration=i, fobj=obj)
+
+#melhor parametro: {'subsample': 1.0, 'n_estimators': 200, 'min_child_weight': 1, 'max_depth': 15, 'learning_rate': 0.2, 'colsample_bytree': 0.6}
+#melhor score (validação cruzada): 0.8589544867204559
+
+#tempo de treino com os melhores parâmetros: 1.75 segundos
+
+#acuracia: 0.7935555555555556
+#matriz de confusao:
+# [[6362  678]
+# [1180  780]]
+#relatorio de classificaçao:
+#               precision    recall  f1-score   support
+#
+# nao default       0.84      0.90      0.87      7040
+#     default       0.53      0.40      0.46      1960
+#
+ #   accuracy                           0.79      9000
+#   macro avg       0.69      0.65      0.66      9000
+#weighted avg       0.78      0.79      0.78      9000
+
